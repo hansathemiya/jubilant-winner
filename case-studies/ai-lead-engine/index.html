@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Lead Engine — Case Study — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      position: relative; /* For particle z-index */
+    }
+
+    h1, h2, h3, .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      border-bottom: 1px solid var(--neutral-divider);
+      background: var(--glass-light); /* Light Glass Header */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    main {
+      padding: 5rem 8rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .back-link {
+      color: var(--primary-accent);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      color: var(--primary-accent);
+    }
+
+    .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .case-content {
+      max-width: 800px;
+      background: var(--glass-light); /* Light Glass */
+      border-radius: 8px;
+      padding: 2.5rem;
+      border-top: 3px solid var(--primary-accent); /* Accent border */
+    }
+
+    .case-content h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight {
+      color: var(--primary-accent);
+      font-weight: bold;
+    }
+
+    .results {
+      background: var(--glass-light); /* Light Glass */
+      border-left: 3px solid var(--primary-accent);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .results h3 {
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+
+    footer {
+      background: var(--glass-light); /* Light Glass Footer */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <main>
+    <a href="/case-studies/" class="back-link">← Back to Case Studies</a>
+    
+    <h1 class="section-title">AI Lead Engine</h1>
+    
+    <div class="case-meta">
+      <span class="tag">AI Integration</span>
+      <span>Q2 2018</span>
+    </div>
+
+    <div class="case-content">
+      <p>For a Series A SaaS startup struggling with lead quality and velocity, Elvariente deployed a custom AI lead scoring and generation engine — the first of its kind in the market, strategically augmenting human talent in lead nurturing workflows.</p>
+      
+      <h2>Challenge</h2>
+      <p>The client's marketing team was overwhelmed with low-quality leads, resulting in wasted sales cycles and declining CAC efficiency. Traditional lead scoring models were static and ineffective, failing to adapt to the nuances of their target market.</p>
+      
+      <h2>Solution</h2>
+      <p>Elvariente architected a dynamic AI model that:</p>
+      <ul>
+        <li>Analyzed 40+ behavioral and demographic data points in real-time</li>
+        <li>Continuously learned from sales feedback loops</li>
+        <li>Integrated with existing CRM and marketing automation tools</li>
+        <li>Prioritized leads with predictive intent scoring</li>
+      </ul>
+      <p>This solution was part of a broader strategy to <span class="highlight">Integrate AI and Automation Across the Agency Ecosystem</span>, freeing human experts to focus on high-level strategy and relationship building.</p>
+      
+      <h2>Technical Approach</h2>
+      <p>Using a combination of natural language processing and ensemble learning techniques, the system processed:</p>
+      <ul>
+        <li>Website interaction data (heatmaps, session replays)</li>
+        <li>Email engagement metrics</li>
+        <li>Content consumption patterns</li>
+        <li>Social signals and firmographic data</li>
+      </ul>
+      <p>The AI acted as a powerful co-pilot, analyzing vast datasets to identify high-intent prospects and optimizing lead nurturing workflows for maximum engagement and conversion.</p>
+      
+      <div class="results">
+        <h3>Results</h3>
+        <p>In the first 90 days:</p>
+        <ul>
+          <li><span class="highlight">+340% increase</span> in lead velocity</li>
+          <li><span class="highlight">78% improvement</span> in lead quality score</li>
+          <li><span class="highlight">45% reduction</span> in sales cycle length</li>
+          <li><span class="highlight">62% decrease</span> in CAC</li>
+        </ul>
+      </div>
+      
+      <h2>Impact</h2>
+      <p>This deployment became the foundation for the client's subsequent $42M Series B raise, with investors specifically citing the proprietary AI advantage as a key differentiator.</p>
+      
+      <p>The system was later embedded into the company's core product, becoming a revenue-generating feature that contributed to 23% of annual recurring revenue. This exemplifies our approach to <span class="highlight">Proprietary Tooling</span> as a "secret sauce" that delivers unique, quantifiable results and creates sustainable competitive advantage.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guerrilla Marketing Campaign — Case Study — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      position: relative; /* For particle z-index */
+    }
+
+    h1, h2, h3, .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      border-bottom: 1px solid var(--neutral-divider);
+      background: var(--glass-light); /* Light Glass Header */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    main {
+      padding: 5rem 8rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .back-link {
+      color: var(--primary-accent);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      color: var(--primary-accent);
+    }
+
+    .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .case-content {
+      max-width: 800px;
+      background: var(--glass-light); /* Light Glass */
+      border-radius: 8px;
+      padding: 2.5rem;
+      border-top: 3px solid var(--primary-accent); /* Accent border */
+    }
+
+    .case-content h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight {
+      color: var(--primary-accent);
+      font-weight: bold;
+    }
+
+    .results {
+      background: var(--glass-light); /* Light Glass */
+      border-left: 3px solid var(--primary-accent);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .results h3 {
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+
+    footer {
+      background: var(--glass-light); /* Light Glass Footer */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <main>
+    <a href="/case-studies/" class="back-link">← Back to Case Studies</a>
+    
+    <h1 class="section-title">Guerrilla Marketing Campaign</h1>
+    
+    <div class="case-meta">
+      <span class="tag">Guerrilla Marketing</span>
+      <span>Q2 2021</span>
+    </div>
+
+    <div class="case-content">
+      <p>For a tech product launch aiming to break through a crowded market, Elvariente orchestrated a groundbreaking <span class="highlight">Augmented Reality (AR) Scavenger Hunt</span> — a next-generation guerrilla marketing campaign designed to create unprecedented buzz and drive immediate sales.</p>
+      
+      <h2>Challenge</h2>
+      <p>The client, launching an innovative consumer tech product, faced the challenge of standing out in a saturated digital landscape. Traditional advertising channels were expensive and offered diminishing returns. The goal was to generate massive organic reach, high engagement, and translate that excitement directly into sales within the launch quarter.</p>
+      
+      <h2>Solution</h2>
+      <p>Elvariente architected a comprehensive guerrilla campaign that:</p>
+      <ul>
+        <li>Designed and developed a custom AR mobile application</li>
+        <li>Created a city-wide scavenger hunt narrative with gamified elements</li>
+        <li>Integrated social sharing mechanics and exclusive rewards</li>
+        <li>Deployed a real-time analytics dashboard to track engagement and ROI</li>
+      </ul>
+      <p>This solution embodied the principle of <span class="highlight">Guerrilla Marketing Reimagined</span>, moving beyond simple broadcasting to facilitating an interactive, shareable experience that empowered the audience to become co-creators of the brand story.</p>
+      
+      <h2>Campaign Approach</h2>
+      <p>The core of the campaign was an <span class="highlight">AR Scavenger Hunt</span>. This tactic, as outlined in the framework, transforms urban spaces into interactive playgrounds. We strategically placed virtual "artifacts" or clues related to the product's features around key locations in major cities. Participants used the custom AR app on their smartphones to find these virtual objects overlaid onto the real world.</p>
+      
+      <p>To maximize virality, the hunt was designed with compelling rewards for completion, such as exclusive product access, discounts, or branded merchandise. Strong social sharing incentives were built in; users could unlock bonus content or prizes by posting videos of their discoveries and tagging the brand. This turned participants into brand ambassadors, exponentially increasing organic reach.</p>
+      
+      <p>The campaign narrative was carefully crafted to be engaging and tied directly to the product's value proposition. Finding clues revealed fun facts, mini-tutorials, or teasers, building anticipation and knowledge about the product before its official release.</p>
+      
+      <h2>Technical Execution</h2>
+      <p>The custom AR application was built using robust frameworks to ensure a smooth user experience. It was integrated with a backend system that tracked user progress, managed rewards, and collected valuable data on participation hotspots and user behavior.</p>
+      <p>A real-time analytics dashboard, part of our proprietary tooling ecosystem, provided the client with live insights into campaign performance, including social mentions, app downloads, and geographic engagement patterns. This allowed for agile adjustments during the campaign to optimize its impact.</p>
+      
+      <div class="results">
+        <h3>Results</h3>
+        <p>In the launch quarter:</p>
+        <ul>
+          <li><span class="highlight">5,000,000+</span> organic social media impressions</li>
+          <li><span class="highlight">300% increase</span> in year-over-year sales for the launch product</li>
+          <li><span class="highlight">250,000+</span> app downloads across campaign cities</li>
+          <li><span class="highlight">78% engagement rate</span> within the AR app</li>
+        </ul>
+      </div>
+      
+      <h2>Impact</h2>
+      <p>The AR Scavenger Hunt campaign generated unprecedented buzz, becoming a trending topic in multiple cities. It successfully positioned the client's brand as innovative and tech-savvy, differentiating it from competitors.</p>
+      <p>The campaign's success directly contributed to the product's strong market entry and exceeded initial sales projections by 180%. The high engagement and positive sentiment generated provided a valuable foundation for future marketing efforts.</p>
+      <p>This deployment exemplifies how <span class="highlight">next-generation guerrilla marketing</span>, powered by cutting-edge technology like AR, can be a powerful lever for growth. By creating a memorable, interactive experience, the campaign not only drove immediate sales but also built lasting brand affinity and community.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

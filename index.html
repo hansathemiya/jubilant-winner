@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Elvariente — The First-Mover Growth Architect. Deploying Tomorrow’s Tech Today with Advanced SEO, Guerrilla Marketing, and Proprietary Tooling." />
+  <title>Elvariente — The First-Mover Growth Architect</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Inline CSS -->
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, .tag, .button, .filter-button {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .terminal {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* Glass Morphism Base */
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      z-index: 1000;
+      transition: height 0.3s ease, background-color 0.3s ease;
+      background: var(--glass-light); /* Light Glass */
+    }
+
+    header.shrink {
+      height: 60px;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 8rem;
+      position: relative;
+      z-index: 10;
+      background-color: var(--paper-bg); /* Paper Background */
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .hero .tagline {
+      font-size: 1.4rem;
+      color: var(--primary-accent);
+      margin-bottom: 2rem;
+    }
+
+    .hero p {
+        max-width: 700px;
+        margin-bottom: 1.5rem;
+    }
+
+    .button {
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(110, 15, 31, 0.2); /* Burgundy shadow */
+    }
+
+    /* Main Content Sections */
+    .content-section {
+        padding: 5rem 8rem;
+        background-color: var(--paper-bg); /* Paper */
+    }
+
+    .content-section h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-on-light);
+    }
+
+    .content-section .subtitle {
+        color: var(--primary-accent);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .content-card {
+        background: var(--glass-light); /* Light Glass */
+        border-top: 3px solid var(--primary-accent);
+        border-radius: 8px;
+        padding: 2rem;
+    }
+
+    .content-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--text-on-light);
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--glass-light); /* Light Glass */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Header -->
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>The First-Mover Growth Architect</h1>
+    <p class="tagline">Deploying Tomorrow’s Tech Today.</p>
+    <p>Architecting for Conversion: The Next Generation of Web Design and Development. Beyond aesthetics, we build resilient, scalable, and search-engine-friendly frameworks that directly support conversion goals, integrating Progressive Web Apps, edge computing, and AI-augmented development.</p>
+    <a href="/services/" class="button">Explore Deployments</a>
+  </section>
+
+  <!-- Main Content Sections -->
+  <section class="content-section">
+    <h2>Guerrilla Marketing Reimagined</h2>
+    <p class="subtitle">Tactics for Creating Unprecedented Buzz</p>
+    <p>Guerrilla marketing transcends traditional advertising by creating memorable, interactive experiences. We leverage Augmented Reality (AR) Scavenger Hunts, Pop-Up Brand Immersive Experiences (often enhanced with VR), and Interactive Social Media Challenges to generate organic word-of-mouth and social buzz, empowering the audience to become co-creators of the brand story.</p>
+    <div class="content-grid">
+        <div class="content-card">
+            <h3>AR Scavenger Hunt</h3>
+            <p>Gamifies exploration, creates shareable moments, encourages community participation using mobile apps and augmented reality.</p>
+        </div>
+        <div class="content-card">
+            <h3>Pop-Up VR Experience</h3>
+            <p>Provides hyper-personalized, memorable brand experiences that are unique and easily shared through immersive virtual environments.</p>
+        </div>
+        <div class="content-card">
+            <h3>Interactive Social Challenge</h3>
+            <p>Leverages social proof, peer influence, and the desire for self-expression to create viral loops with a unique hook and broader narrative.</p>
+        </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>The Art of Advanced SEO</h2>
+    <p class="subtitle">Moving Beyond On-Page Optimization</p>
+    <p>Advanced SEO focuses on semantic relevance, user trust, and data-driven decision-making. We master semantic search with pillar-cluster content strategies, cultivate Domain Authority through high-quality, link-worthy assets, and relentlessly optimize for Core Web Vitals and user experience, underpinned by proprietary analytical frameworks.</p>
+    <div class="content-grid">
+        <div class="content-card">
+            <h3>Semantic Mastery</h3>
+            <p>Topic-centric content strategy with pillar and cluster content, enhanced by Structured Data markup for rich snippets.</p>
+        </div>
+        <div class="content-card">
+            <h3>Authority Cultivation</h3>
+            <p>Strategic acquisition of high-quality backlinks through original research, interactive tools, and compelling visual content.</p>
+        </div>
+        <div class="content-card">
+            <h3>Performance & UX</h3>
+            <p>Optimization for Core Web Vitals (LCP, INP, CLS) through PWA architecture, edge computing, and continuous UX audits.</p>
+        </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>Proprietary Tooling</h2>
+    <p class="subtitle">The Secret Sauce for Amplified Performance</p>
+    <p>Possessing a suite of proprietary, closed-source tools is a primary driver of competitive advantage. We develop Agency-Specific Workflow Platforms, Closed-Source Analytical Suites, Custom Development Toolkits, and Specialized Research Tools to ensure unparalleled efficiency, deeper insights, and unique, quantifiable results.</p>
+    <div class="content-grid">
+        <div class="content-card">
+            <h3>Workflow & Management</h3>
+            <p>Custom platforms tailored to our processes for increased efficiency, reduced manual work, and seamless client reporting.</p>
+        </div>
+        <div class="content-card">
+            <h3>Analytical Suite</h3>
+            <p>Closed-source tools unifying data sources for deeper insights, quantifiable ROI, and predictive trend analysis using proprietary algorithms.</p>
+        </div>
+        <div class="content-card">
+            <h3>Development Toolkit</h3>
+            <p>Libraries and APIs for rapid, high-quality, consistent development of bespoke web solutions.</p>
+        </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+
+    // Navbar Shrink
+    window.addEventListener("scroll", () => {
+      const nav = document.querySelector("header");
+      if (window.scrollY > 50) {
+        nav.classList.add("shrink");
+      } else {
+        nav.classList.remove("shrink");
+      }
+    });
+  </script>
+</body>
+</html>

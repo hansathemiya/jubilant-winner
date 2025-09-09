@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PWA & Edge Architecture — Case Study — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,707;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      position: relative; /* For particle z-index */
+    }
+
+    h1, h2, h3, .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      border-bottom: 1px solid var(--neutral-divider);
+      background: var(--glass-light); /* Light Glass Header */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    main {
+      padding: 5rem 8rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .back-link {
+      color: var(--primary-accent);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      color: var(--primary-accent);
+    }
+
+    .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .case-content {
+      max-width: 800px;
+      background: var(--glass-light); /* Light Glass */
+      border-radius: 8px;
+      padding: 2.5rem;
+      border-top: 3px solid var(--primary-accent); /* Accent border */
+    }
+
+    .case-content h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight {
+      color: var(--primary-accent);
+      font-weight: bold;
+    }
+
+    .results {
+      background: var(--glass-light); /* Light Glass */
+      border-left: 3px solid var(--primary-accent);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .results h3 {
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+
+    footer {
+      background: var(--glass-light); /* Light Glass Footer */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <main>
+    <a href="/case-studies/" class="back-link">← Back to Case Studies</a>
+    
+    <h1 class="section-title">PWA & Edge Architecture</h1>
+    
+    <div class="case-meta">
+      <span class="tag">Advanced Web Architecture</span>
+      <span>Q4 2019</span>
+    </div>
+
+    <div class="case-content">
+      <p>For a pre-IPO deep tech unicorn, Elvariente executed a complete brand and web system overhaul — integrating narrative architecture with an immersive digital experience built on a cutting-edge <span class="highlight">Progressive Web App (PWA)</span> framework and <span class="highlight">edge computing</span> infrastructure to drive enterprise conversion.</p>
+      
+      <h2>Challenge</h2>
+      <p>The client had a fragmented brand presence with a website that failed to communicate their technological advantage. Despite strong product-market fit, enterprise conversion rates were below industry benchmarks. The existing site suffered from slow load times, poor mobile experience, and lacked the sophisticated analytics needed to understand user behavior.</p>
+      
+      <h2>Solution</h2>
+      <p>Elvariente deployed a unified brand-web fusion system that:</p>
+      <ul>
+        <li>Architected a new brand narrative centered on "invisible intelligence"</li>
+        <li>Designed an immersive web experience with embedded growth loops</li>
+        <li>Created a technical storytelling framework for complex AI products</li>
+        <li>Implemented behavioral micro-targeting for enterprise personas</li>
+      </ul>
+      <p>This solution was grounded in the principle of <span class="highlight">Architecting for Conversion</span>, ensuring that every technical decision directly supported business objectives and user experience.</p>
+      
+      <h2>Web Architecture Approach</h2>
+      <p>The core of the solution was a <span class="highlight">Progressive Web App (PWA)</span>. This choice was strategic, as PWAs offer a native-app-like experience on the open web, providing features like offline access, push notifications, and fast, reliable performance. This directly addressed the client's performance issues and enhanced user engagement and retention.</p>
+      
+      <p>To further amplify performance and security, the PWA was deployed on an <span class="highlight">edge computing</span> platform. This distributed processing power closer to the user, dramatically reducing latency and leading to faster load times. This approach was crucial for mobile-first indexing and optimizing Core Web Vitals scores (LCP, INP, CLS), which are direct Google ranking signals.</p>
+      
+      <p>The development process was <span class="highlight">AI-Augmented</span>. AI tools were used to automate code generation, perform real-time accessibility checks, and optimize assets for different devices and network conditions. This ensured a higher quality output and faster iteration cycles.</p>
+      
+      <h2>Brand Architecture</h2>
+      <p>The new brand system positioned the company as:</p>
+      <ul>
+        <li><span class="highlight">Invisible Intelligence</span> - Technology that works without being seen</li>
+        <li><span class="highlight">Enterprise Whisperer</span> - Understanding complex organizational needs</li>
+        <li><span class="highlight">Future-Proof Foundation</span> - Building systems that evolve with technology</li>
+      </ul>
+      
+      <h2>Web Experience Design</h2>
+      <p>The PWA-based website became a conversion machine through:</p>
+      <ul>
+        <li>Personalized journey mapping for 6 enterprise personas</li>
+        <li>Interactive technical demonstrations with real-time ROI calculators</li>
+        <li>Embedded case study storytelling with dynamic data visualization</li>
+        <li>Seamless integration with CRM and marketing automation</li>
+      </ul>
+      <p>A sophisticated tagging and analytics strategy was implemented from day one using GA4 and GTM, gathering granular data on user behavior to inform design decisions and enable continuous A/B testing for optimization.</p>
+      
+      <div class="results">
+        <h3>Results</h3>
+        <p>Within 6 months post-launch:</p>
+        <ul>
+          <li><span class="highlight">+190% increase</span> in enterprise demo requests</li>
+          <li><span class="highlight">73% improvement</span> in time-on-site for enterprise visitors</li>
+          <li><span class="highlight">+145% growth</span> in qualified pipeline</li>
+          <li><span class="highlight">58% reduction</span> in sales qualification time</li>
+        </ul>
+      </div>
+      
+      <h2>Impact</h2>
+      <p>The overhaul directly contributed to the company's successful IPO, with the S-1 filing specifically highlighting brand strength and technological architecture as competitive moats. Post-IPO, the website became a key investor communication tool, driving 34% of institutional investor inquiries.</p>
+      
+      <p>The embedded growth systems and robust architecture continued to perform autonomously, maintaining conversion rates 89% above industry benchmarks for 18 months post-launch. This deployment exemplifies how <span class="highlight">Advanced Web Architecture</span> serves as the ultimate engine for growth, forming the bedrock of a successful digital ecosystem.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

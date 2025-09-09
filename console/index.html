@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Console — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+      --terminal-text: var(--text-on-light); /* Black text on light glass */
+      --terminal-bg: var(--glass-light); /* Light Glass */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'IBM Plex Mono', monospace;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative; /* For particle z-index */
+    }
+
+    .terminal-container {
+      width: 90%;
+      max-width: 900px;
+      height: 80vh;
+      background: var(--terminal-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      border: 1px solid var(--neutral-divider);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(110, 15, 31, 0.1); /* Burgundy shadow */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .terminal-header {
+      height: 30px;
+      background: rgba(247, 231, 206, 0.4); /* Slightly opaque header */
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--neutral-divider);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot.close { background: var(--primary-accent); } /* Burgundy close */
+    .dot.minimize { background: var(--neutral-divider); } /* Quartz minimize */
+    .dot.maximize { background: var(--gold-bg-text); } /* Gold maximize */
+
+    .terminal-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .output {
+      flex: 1;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: var(--terminal-text);
+    }
+
+    .input-line {
+      display: flex;
+      color: var(--terminal-text);
+    }
+
+    .prompt {
+      color: var(--primary-accent); /* Burgundy prompt */
+      margin-right: 8px;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      color: var(--terminal-text);
+      font-family: inherit;
+      font-size: inherit;
+      flex: 1;
+      outline: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-accent); /* Burgundy scrollbar */
+      border-radius: 3px;
+    }
+
+    .highlight {
+      color: var(--primary-accent); /* Burgundy highlight */
+    }
+
+    .error {
+      color: var(--primary-accent); /* Using burgundy for errors too, could be different */
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <div class="terminal-container">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <div class="dot close"></div>
+        <div class="dot minimize"></div>
+        <div class="dot maximize"></div>
+      </div>
+    </div>
+    <div class="terminal-body">
+      <div class="output" id="output">
+ELVARIENTE CONSOLE v2.1
+Type <span class="highlight">help</span> for available commands.
+>>> 
+      </div>
+      <div class="input-line">
+        <span class="prompt">>>></span>
+        <input type="text" id="commandInput" autofocus>
+      </div>
+    </div>
+  </div>
+
+  <script>
+     // Particles Config
+     particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+
+    const output = document.getElementById("output");
+    const input = document.getElementById("commandInput");
+
+    const commands = {
+      help: () => `
+Available commands:
+<span class="highlight">help</span>         — Show this help
+<span class="highlight">deployments</span>  — View past growth deployments
+<span class="highlight">skills</span>       — View Elvariente’s multidisciplinary skill matrix
+<span class="highlight">contact</span>      — Access contact protocol
+<span class="highlight">secret</span>       — Unlock hidden insight
+<span class="highlight">clear</span>        — Clear terminal
+<span class="highlight">framework</span>    — Core agency differentiation strategy
+<span class="highlight">deploy --advantage</span> — Initiate first-mover advantage
+`,
+      deployments: () => `
+<span class="highlight">[DEPLOYMENT LOG]</span>
+• AI Lead Engine — SaaS Startup, +340% lead velocity
+• PWA & Edge Architecture — Deep Tech Unicorn, +190% conversion
+• Guerrilla Campaign (AR Hunt) — Tech Product, 5M+ social impressions
+• Technical SEO Overhaul — AI Infra Firm, +420% inbound
+`,
+      skills: () => `
+<span class="highlight">[SKILL MATRIX]</span>
+• Advanced Web Architecture (PWA, Edge, AI-Augmented Dev)
+• Guerrilla Marketing (AR/VR, Social Challenges)
+• Advanced SEO (Semantic, Authority, UX)
+• Proprietary Tooling & AI Integration
+`,
+      contact: () => `
+<span class="highlight">[CONTACT PROTOCOL]</span>
+Email: contact@elvariente.com
+Signal: Encrypted channel available on request
+`,
+      secret: () => `
+<span class="highlight">[SECRET DEPLOYMENT]</span>
+The most powerful growth is not visible.
+It is embedded.
+Synthesizing strategy: Web Arch + Guerrilla + SEO + Proprietary Tools.
+This is how we multiply sales in the hundreds x.
+`,
+      clear: () => {
+        output.innerHTML = ">>> ";
+        return "";
+      },
+      framework: () => `
+<span class="highlight">[AGENCY DIFFERENTIATION FRAMEWORK]</span>
+Core Pillars:
+1. <span class="highlight">Advanced Web Architecture</span>
+   - Progressive Web Apps (PWAs)
+   - Edge Computing
+   - AI-Augmented Development
+2. <span class="highlight">Guerrilla Marketing Reimagined</span>
+   - AR Scavenger Hunts
+   - Pop-Up VR Experiences
+   - Interactive Social Challenges
+3. <span class="highlight">The Art of Advanced SEO</span>
+   - Semantic Search Mastery
+   - Authority Cultivation
+   - Performance & UX Optimization
+4. <span class="highlight">Proprietary Tooling</span>
+   - Custom Workflow Platforms
+   - Closed-Source Analytical Suites
+   - Development Toolkits
+`,
+      "deploy --advantage": () => `
+<span class="highlight">[DEPLOYING FIRST-MOVER ADVANTAGE]</span>
+Initializing...
+> Synthesizing strategy framework...
+> Activating Advanced Web Architecture protocols...
+> Launching Guerrilla Marketing engine...
+> Executing Advanced SEO optimization...
+> Integrating Proprietary Tooling suite...
+<span class="highlight">SUCCESS: Advantage deployed. Competitive lag initiated.</span>
+Multiplying sales in the hundreds x.
+`
+    };
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const cmd = input.value.trim().toLowerCase();
+        input.value = "";
+
+        const newLine = document.createElement("div");
+        newLine.innerHTML = `<span class="prompt">>>></span> ${cmd}`;
+        output.appendChild(newLine);
+
+        let response = "";
+        if (commands[cmd]) {
+          response = commands[cmd]();
+        } else if (cmd === "") {
+          response = "";
+        } else {
+          response = `<span class="error">Command not recognized. Type 'help' for options.</span>`;
+        }
+
+        if (response) {
+          const resLine = document.createElement("div");
+          resLine.innerHTML = response;
+          output.appendChild(resLine);
+        }
+
+        // Scroll to bottom
+        output.parentElement.scrollTop = output.parentElement.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>

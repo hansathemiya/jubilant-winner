@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      position: relative; /* For particle z-index */
+    }
+
+    h1, h2, h3, .tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      border-bottom: 1px solid var(--neutral-divider);
+      background: var(--glass-light); /* Light Glass Header */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    main {
+      padding: 5rem 8rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--primary-accent);
+      margin-bottom: 3rem;
+    }
+
+    .lab-intro {
+        background: var(--glass-light); /* Light Glass */
+        border-radius: 8px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .lab-intro p {
+        margin-bottom: 1.5rem;
+    }
+
+    .terminal-feed {
+      background: var(--glass-light); /* Light Glass */
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 300px;
+      border-top: 3px solid var(--primary-accent); /* Accent border */
+    }
+
+    .terminal-header {
+      color: var(--primary-accent);
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .terminal-content {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: var(--text-on-light); /* Text on light background */
+    }
+
+    .beta-form {
+      background: var(--glass-light); /* Light Glass */
+      border-radius: 8px;
+      padding: 2.5rem;
+      max-width: 600px;
+      border-top: 3px solid var(--primary-accent); /* Accent border */
+    }
+
+    .beta-form h2 {
+      margin-bottom: 1.5rem;
+      color: var(--text-on-light);
+    }
+
+    .beta-form p {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-on-light);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+    }
+
+    .button {
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(110, 15, 31, 0.2); /* Burgundy shadow */
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+
+    footer {
+      background: var(--glass-light); /* Light Glass Footer */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <main>
+    <h1 class="section-title">The Growth Lab</h1>
+    <p class="section-subtitle">Live Deployments. Beta Access. First-Mover Advantage.</p>
+
+    <div class="lab-intro">
+        <p>The Growth Lab is where we prototype the future. Here, we test cutting-edge strategies in Advanced Web Architecture, Guerrilla Marketing, Advanced SEO, and Proprietary Tooling before they become industry standards.</p>
+        <p>Our proprietary analytical frameworks and AI-augmented development processes are constantly evolving. This live feed showcases real-time activity from our current deployments and research initiatives.</p>
+    </div>
+
+    <div class="terminal-feed">
+      <div class="terminal-header">LIVE FEED — DEPLOYMENT STATUS</div>
+      <div class="terminal-content" id="liveFeed">
+[2025-03-15 14:23:47] Initializing AI lead scoring model v2.4...
+[2025-03-15 14:24:12] Brand architecture sync complete for Client #4289
+[2025-03-15 14:25:33] Sales funnel optimization deployed to staging
+[2025-03-15 14:26:01] Technical positioning framework updated
+[2025-03-15 14:27:15] Embedded growth system activated for Client #7341
+[2025-03-15 14:28:03] Performance monitoring initiated
+      </div>
+    </div>
+
+    <div class="beta-form">
+      <h2>Request Beta Access</h2>
+      <p>Gain early access to upcoming growth deployments and exclusive insights from our proprietary research.</p>
+      
+      <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="entry.1234567890" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="entry.760643560" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="entry.9876543210" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" name="entry.5556667778" required>
+            <option value="">Select your role</option>
+            <option value="Founder/CEO">Founder/CEO</option>
+            <option value="CTO">CTO</option>
+            <option value="Head of Growth">Head of Growth</option>
+            <option value="Investor">Investor</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="interest">Areas of Interest</label>
+          <textarea id="interest" name="entry.4443332221" rows="3" placeholder="Which growth areas are you most interested in? (e.g., Advanced SEO, Proprietary Tooling, AI Integration)"></textarea>
+        </div>
+        
+        <button type="submit" class="button">Request Access</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+
+    // Simple live feed simulation
+    const feed = document.getElementById('liveFeed');
+    const messages = [
+      "[2025-03-15 14:29:45] PWA performance audit initiated for Client #8812",
+      "[2025-03-15 14:30:12] Guerrilla campaign analytics synced",
+      "[2025-03-15 14:31:33] Proprietary SEO tool detecting new ranking opportunity...",
+      "[2025-03-15 14:32:01] AI content optimizer processing batch #47",
+      "[2025-03-15 14:33:15] Edge computing latency reduced by 12ms"
+    ];
+    
+    let index = 0;
+    setInterval(() => {
+      if (index < messages.length) {
+        feed.innerHTML += `\n${messages[index]}`;
+        feed.scrollTop = feed.scrollHeight;
+        index++;
+      } else {
+        // Reset for loop
+        index = 0;
+        // Or add a generic message
+        // feed.innerHTML += `\n[2025-03-15 14:34:00] Systems nominal. Monitoring active.`;
+        // feed.scrollTop = feed.scrollHeight;
+      }
+    }, 5000);
+  </script>
+
+</body>
+</html>

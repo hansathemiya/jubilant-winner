@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies — Elvariente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      /* New Color Scheme */
+      --primary-accent: #6E0F1F; /* Velvet Burgundy */
+      --secondary-accent: #B22222; /* Light Maroon for particles */
+      --gold-bg-text: #D4AF37; /* Imperial Gold */
+      --text-on-light: #0B0B0B; /* Obsidian Black */
+      --text-on-dark: #FDFDFD; /* Pearl White */
+      --paper-bg: #FDFDFD; /* Pearl White */
+      --dark-bg: #0B0B0B; /* Obsidian Black */
+      --neutral-divider: #837060; /* Smoky Quartz */
+      --glass-light: rgba(247, 231, 206, 0.25); /* Champagne Mist Tint */
+      --glass-dark: rgba(11, 11, 11, 0.25); /* Obsidian Tint */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--text-on-light);
+      font-family: 'Lora', serif;
+      line-height: 1.8;
+      position: relative; /* For particle z-index */
+    }
+
+    h1, h2, h3, .tag, .filter-button {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .glass {
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--neutral-divider);
+    }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      border-bottom: 1px solid var(--neutral-divider);
+      background: var(--glass-light); /* Light Glass Header */
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    main {
+      padding: 5rem 8rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--primary-accent);
+      margin-bottom: 3rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-button {
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      color: var(--text-on-light);
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px; /* Sharp corners as per brand */
+    }
+
+    .filter-button.active,
+    .filter-button:hover {
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border-color: var(--primary-accent);
+    }
+
+    .cases-intro {
+        background: var(--glass-light); /* Light Glass */
+        border-radius: 8px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .cases-intro p {
+        margin-bottom: 1.5rem;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+
+    .case-card {
+      background: var(--glass-light); /* Light Glass */
+      border-top: 3px solid var(--primary-accent);
+      border-radius: 8px;
+      padding: 2.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .case-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .case-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-on-light);
+    }
+
+    .case-card .tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .case-card .tag {
+      font-size: 0.8rem;
+      color: var(--primary-accent);
+    }
+
+    .case-card p {
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(110, 15, 31, 0.2); /* Burgundy shadow */
+    }
+
+    /* Particles */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Behind content */
+    }
+
+    footer {
+      background: var(--glass-light); /* Light Glass Footer */
+      padding: 3rem 4rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-on-light);
+      border-top: 1px solid var(--neutral-divider);
+      margin-top: 6rem;
+      position: relative;
+      z-index: 10; /* Above particles */
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-accent);
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer .social-icons svg {
+      width: 20px;
+      fill: var(--primary-accent);
+      transition: fill 0.3s ease;
+    }
+
+    footer .social-icons svg:hover {
+      fill: var(--neutral-divider);
+    }
+
+    footer .quick-links a {
+      color: var(--text-on-light);
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    footer .quick-links a:hover {
+        color: var(--primary-accent);
+    }
+
+    footer .newsletter input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--neutral-divider);
+      border-radius: 4px;
+      color: var(--text-on-light);
+    }
+
+    footer .newsletter button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-accent);
+      color: var(--paper-bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer .copyright {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <header class="glass">
+    <div class="logo">ELVARIENTE</div>
+  </header>
+
+  <main>
+    <h1 class="section-title">Deployed Advantage</h1>
+    <p class="section-subtitle">Case Studies in First-Mover Growth</p>
+
+    <div class="cases-intro">
+        <p>Our deployments are not isolated services but integrated frameworks designed to multiply sales and engineer first-mover advantage through a comprehensive digital ecosystem. Below are select case studies demonstrating the synthesis of our core pillars: Advanced Web Architecture, Guerrilla Marketing, Advanced SEO, and Proprietary Tooling.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-button active" data-filter="all">All</button>
+      <button class="filter-button" data-filter="web">Advanced Web</button>
+      <button class="filter-button" data-filter="guerrilla">Guerrilla Marketing</button>
+      <button class="filter-button" data-filter="seo">Advanced SEO</button>
+      <button class="filter-button" data-filter="tools">Proprietary Tools</button>
+      <button class="filter-button" data-filter="ai">AI Integration</button>
+    </div>
+
+    <div class="cases-grid">
+      <!-- AI Lead Engine -->
+      <div class="case-card" data-category="ai">
+        <div class="tags">
+          <span class="tag">AI Integration</span>
+        </div>
+        <h3>AI Lead Engine</h3>
+        <p>Custom AI model deployment for SaaS lead generation — +340% velocity in 90 days. Integrated AI for predictive lead scoring and automated nurturing workflows.</p>
+        <a href="/case-studies/ai-lead-engine/" class="button">View Deployment</a>
+      </div>
+
+      <!-- Brand + Web Overhaul -->
+      <div class="case-card" data-category="web">
+        <div class="tags">
+          <span class="tag">Advanced Web</span>
+        </div>
+        <h3>PWA & Edge Architecture</h3>
+        <p>Integrated Progressive Web App architecture with edge computing — +190% conversion lift. Built for performance, reliability, and future scalability.</p>
+        <a href="/case-studies/brand-web-overhaul/" class="button">View Deployment</a>
+      </div>
+
+      <!-- Guerrilla Marketing Campaign -->
+      <div class="case-card" data-category="guerrilla">
+        <div class="tags">
+          <span class="tag">Guerrilla Marketing</span>
+        </div>
+        <h3>AR Scavenger Hunt</h3>
+        <p>Launched an AR Scavenger Hunt for a tech product launch, generating 5M+ social impressions and 300% YoY sales growth in the launch quarter.</p>
+        <a href="/case-studies/sales-funnel-overhaul/" class="button">View Deployment</a>
+      </div>
+
+      <!-- Tech Positioning / SEO -->
+      <div class="case-card" data-category="seo">
+        <div class="tags">
+          <span class="tag">Advanced SEO</span>
+        </div>
+        <h3>Technical SEO Overhaul</h3>
+        <p>AI infra firm — +420% inbound interest via invisible growth systems. Leveraged advanced semantic SEO and proprietary research tools.</p>
+        <a href="/case-studies/tech-positioning/" class="button">View Deployment</a>
+      </div>
+
+       <!-- Proprietary Tooling -->
+       <div class="case-card" data-category="tools">
+        <div class="tags">
+          <span class="tag">Proprietary Tools</span>
+        </div>
+        <h3>Custom Analytics Suite</h3>
+        <p>Developed a closed-source analytical tool for a client, providing a "Business Impact Score" and predictive trend analysis, leading to 25% more proactive optimizations.</p>
+        <a href="#" class="button">View Deployment</a> <!-- Placeholder -->
+      </div>
+
+       <!-- Integrated Campaign -->
+       <div class="case-card" data-category="web,guerrilla,seo">
+        <div class="tags">
+          <span class="tag">Integrated</span>
+        </div>
+        <h3>Fintech Brand Launch</h3>
+        <p>Full-stack deployment: PWA site, semantic SEO strategy, and an immersive VR pop-up experience. Resulted in market-leading brand awareness and 150% lead target achievement in 6 months.</p>
+        <a href="#" class="button">View Deployment</a> <!-- Placeholder -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="footer-content">
+      <div class="logo">ELVARIENTE</div>
+      <div class="social-icons">
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+        <a href="#"><svg><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
+      </div>
+      <div class="quick-links">
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/case-studies/">Case Studies</a>
+        <a href="/lab/">Lab</a>
+      </div>
+      <div class="newsletter">
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_self">
+          <input type="email" name="entry.760643560" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Elvariente. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Particles Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#B22222" }, /* Light Maroon */
+        shape: { type: "circle" },
+        opacity: { value: 0.2 },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      }
+    });
+
+    // Simple filter functionality
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const caseCards = document.querySelectorAll('.case-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filter = button.dataset.filter;
+
+        caseCards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'block';
+          } else {
+            const categories = card.dataset.category.split(',');
+            if (categories.includes(filter)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
